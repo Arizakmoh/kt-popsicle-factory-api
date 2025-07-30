@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # These are some examples of commonly ignored file patterns.
 # You should customize this list as applicable to your project.
 # Learn more about .gitignore:
@@ -48,3 +49,19 @@ Thumbs.db
 *.mov
 *.wmv
 
+=======
+# Ignore Visual Studio files
+.vs/
+*.user
+*.suo
+
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore other common
+*.log
+*.db
+*.DS_Store
+.env
+>>>>>>> 933c94c (Initial commit of Popsicle Factory API)

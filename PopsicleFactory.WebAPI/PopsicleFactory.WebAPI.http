@@ -1,0 +1,6 @@
+@PopsicleFactory.WebAPI_HostAddress = http://localhost:5235
+
+GET {{PopsicleFactory.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
