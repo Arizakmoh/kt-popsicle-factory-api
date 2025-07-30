@@ -22,7 +22,7 @@ public class PopsiclesControllerTests
     {
         _mockRepo = new Mock<IPopsicleRepository>();
 
-        // Set up Mapster for testing with all required mappings
+        // Setup Mapster 
         var config = new TypeAdapterConfig();
         config.NewConfig<Popsicle, PopsicleDto>();
         config.NewConfig<CreatePopsicleDto, Popsicle>();
