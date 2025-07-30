@@ -1,106 +1,101 @@
-﻿Of course. Here is a polished and professional README.md based on the information you provided.
+﻿# 🧊 PopsicleFactory API
 
-Popsicle Factory API 🧊
-A clean, professional RESTful Web API built with .NET 8, following Clean Architecture principles. This project manages a simple inventory of popsicles with full CRUD functionality.
+A clean, professional RESTful Web API built with **.NET 8**, following **Clean Architecture** principles. This project manages a simple inventory of popsicles with full CRUD functionality.
 
-✨ Features
-Full CRUD Functionality: Create, Read, Update, and Delete popsicles.
+---
 
-Clean Architecture: A well-organized solution promoting separation of concerns, testability, and maintainability.
+## 📦 Tech Stack
 
-Validation: Uses FluentValidation for robust request validation.
+- **.NET 8 Web API**
+- **Clean Architecture**
+- **FluentValidation**
+- **xUnit** for unit testing
+- **Swagger/OpenAPI** for API documentation
+- **In-Memory Repository** (mock data layer)
 
-Unit Tested: Includes a suite of tests using xUnit and Moq.
+---
 
-API Documentation: Provides interactive documentation via Swagger/OpenAPI.
-
-📦 Tech Stack
-.NET 8 Web API
-
-xUnit & Moq
-
-FluentValidation
-
-Mapster
-
-Swagger
-
-In-Memory Repository (mock data layer)
-
-🧱 Project Structure
-The solution is organized using Clean Architecture principles to ensure a clear separation of concerns.
+## 🧱 Clean Architecture Structure
 
 PopsicleFactory/
-├── PopsicleFactory.Domain/              # Domain Entities and Interfaces
-├── PopsicleFactory.Application/         # DTOs, Services, Validation
-├── PopsicleFactory.Infrastructure/      # Repositories, Data Access
-├── PopsicleFactory.WebAPI/              # Controllers, API, Swagger
-└── PopsicleFactory.Application.Tests/   # Unit tests with xUnit and Moq
-🚀 Getting Started
-Follow these steps to get the project running on your local machine.
+├── PopsicleFactory.Domain/ # Domain Entities and Interfaces
 
-1. Prerequisites
+├── PopsicleFactory.Application/ # DTOs, Services, Validation
 
-.NET 8 SDK
+├── PopsicleFactory.Infrastructure/ # Repositories, Data Access
 
-2. Clone the Repository
+├── PopsicleFactory.WebAPI/ # Controllers, API, Swagger
 
-Bash
+└── PopsicleFactory.Application.Tests/ # Unit tests with xUnit and Moq
+
+---
+
+## 🚀 Getting Started
+
+### 📥 Clone the Repository
+
 
 git clone https://github.com/Arizakmoh/kt-popsicle-factory-api.git
-cd kt-popsicle-factory-api
-3. Restore Dependencies
+cd popsicle-factory
 
-Bash
 
-dotnet restore
-4. Run the API
+---
 
-Bash
+## 🛠️ Run the API Locally
 
-dotnet run --project PopsicleFactory.WebAPI
-The API server will start. Take note of the local URL from the console output (e.g., http://localhost:5235).
+Open the solution in Visual Studio 2022+
 
-5. Access Swagger UI
-Once the server is running, open your browser and navigate to the Swagger UI to interact with the API:
-http://localhost:<your-port>/swagger (e.g., http://localhost:5235/swagger)
+Set PopsicleFactory.WebAPI as the startup project
 
-🔌 API Endpoints
-Method	Endpoint	Description
-GET	/api/popsicles	Get all popsicles.
-GET	/api/popsicles/{id}	Get a single popsicle by its ID.
-POST	/api/popsicles	Create a new popsicle.
-PUT	/api/popsicles/{id}	Update an existing popsicle.
-DELETE	/api/popsicles/{id}	Delete a popsicle.
+Run the project (Ctrl + F5)
 
-Export to Sheets
-Example: Create a Popsicle
-POST /api/popsicles
 
-Request Body:
+## ✅ Swagger UI will launch automatically at:
+ http://localhost:5000/swagger (double check the port please)
 
-JSON
 
-{
-  "name": "Orange Cream",
-  "flavor": "Orange & Vanilla",
-  "price": 3.50
-}
-Success Response (201 Created):
 
-JSON
+ ## 🔌 API Endpoints
+	Method	Endpoint	Description
+	GET	/api/popsicles	Get all popsicles
+	GET	/api/popsicles/{id}	Get a popsicle by ID
+	POST	/api/popsicles	Create a new popsicle
+	PUT	/api/popsicles/{id}	Update an existing popsicle
+	DELETE	/api/popsicles/{id}	Delete a popsicle (optional)
 
-{
-  "id": "e8a7e5a7-9c8e-4f3a-b8e7-0a4e7e9a2b1c",
-  "name": "Orange Cream",
-  "flavor": "Orange & Vanilla",
-  "price": 3.50
-}
-🧪 Unit Testing
-The project includes a full suite of unit tests. To run them, execute the following command from the root directory:
 
-Bash
+ ## 📄 Data Model
+ 	 {
+	  "id": "uuid (optional for POST)",
+	  {
+		"name": "string",
+		"flavor": "string",
+		"price": 0
+	  }
 
-dotnet test
+
+
+ ##  🧪 Unit Testing
+	Unit tests for PopsicleService live in PopsicleFactory.Application.Tests
+
+	Run tests via:
+
+	dotnet test
+
+
+##  🌐 Swagger Docs
+Automatically available at:
+http://localhost:5000/swagger
+
+It includes:
+
+Full endpoint documentation
+Sample requests/responses
+Error responses
+
+
+
 👨‍💻 Author
-Abdirizak Abdullahi - .NET Developer
+Abdirizak  Abdullahi
+.NET Developer  
+
