@@ -1,8 +1,10 @@
-﻿using Xunit;
+using Xunit;
 using Moq;
 using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch.Operations;
 using PopsicleFactory.Domain.Entities;
 using PopsicleFactory.Domain.Interfaces;
 using PopsicleFactory.Application.Dtos;
@@ -130,6 +132,39 @@ public class PopsiclesControllerTests
 
         // Act
         var result = await _controller.ReplacePopsicle(Guid.NewGuid(), updateDto);
+
+        // Assert
+        Assert.IsType<NotFoundObjectResult>(result);
+    }
+
+    [Fact]
+    public async Task UpdatePopsicle_WhenPopsicleExists_ShouldReturnNoContent()
+    {
+        // Arrange
+        var popsicleId = Guid.NewGuid();
+        var existingPopsicle = new Popsicle { Id = popsicleId, Name = "Original", Price = 1.00m };
+        _mockRepo.Setup(repo => repo.GetByIdAsync(popsicleId)).ReturnsAsync(existingPopsicle);
+
+        var patchDoc = new JsonPatchDocument<UpdatePopsicleDto>();
+        patchDoc.Operations.Add(new Operation<UpdatePopsicleDto>("replace", "/price", null, 3.99m));
+
+        // Act
+        var result = await _controller.UpdatePopsicle(popsicleId, patchDoc);
+
+        // Assert
+        Assert.IsType<NoContentResult>(result);
+        _mockRepo.Verify(r => r.UpdateAsync(It.Is<Popsicle>(p => p.Price == 3.99m)), Times.Once);
+    }
+
+    [Fact]
+    public async Task UpdatePopsicle_WhenPopsicleDoesNotExist_ShouldReturnNotFound()
+    {
+        // Arrange
+        _mockRepo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Popsicle?)null);
+        var patchDoc = new JsonPatchDocument<UpdatePopsicleDto>();
+
+        // Act
+        var result = await _controller.UpdatePopsicle(Guid.NewGuid(), patchDoc);
 
         // Assert
         Assert.IsType<NotFoundObjectResult>(result);
