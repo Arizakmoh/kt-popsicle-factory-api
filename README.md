@@ -10,7 +10,7 @@ A clean, professional RESTful Web API built with **.NET 8**, following **Clean A
 - **Clean Architecture**
 - **FluentValidation**
 - **xUnit** for unit testing
-- **Swagger/OpenAPI** for API documentation
+- **Swagger** for API documentation
 - **In-Memory Repository** (mock data layer)
 
 ---
