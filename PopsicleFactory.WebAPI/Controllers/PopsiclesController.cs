@@ -5,7 +5,6 @@ using PopsicleFactory.Domain.Entities;
 using MapsterMapper;
 using Microsoft.AspNetCore.JsonPatch;
 
-
 namespace PopsicleFactory.WebAPI.Controllers;
 //korterra Assesment Popsicles Controller 
 
