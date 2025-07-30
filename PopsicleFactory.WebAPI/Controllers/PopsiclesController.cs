@@ -3,6 +3,8 @@ using PopsicleFactory.Domain.Interfaces;
 using PopsicleFactory.Application.Dtos;
 using PopsicleFactory.Domain.Entities;
 using MapsterMapper;
+using Microsoft.AspNetCore.JsonPatch;
+
 
 namespace PopsicleFactory.WebAPI.Controllers;
 //korterra Assesment Popsicles Controller 
@@ -61,6 +63,40 @@ public class PopsiclesController : ControllerBase
         await _repository.UpdateAsync(existingPopsicle);
 
         return Ok(_mapper.Map<PopsicleDto>(existingPopsicle));
+    }
+
+    [HttpPatch("{id:guid}")]
+    public async Task<IActionResult> UpdatePopsicle(Guid id, [FromBody] JsonPatchDocument<UpdatePopsicleDto> patchDoc)
+    {
+        if (patchDoc is null)
+        {
+            return BadRequest();
+        }
+    
+        var existingPopsicle = await _repository.GetByIdAsync(id);
+        if (existingPopsicle is null)
+        {
+            return NotFound($"Popsicle with ID {id} not found.");
+        }
+    
+        // Create a DTO from the existing entity to apply the patch to
+        var popsicleToPatch = _mapper.Map<UpdatePopsicleDto>(existingPopsicle);
+    
+        // Apply the patch operations
+        patchDoc.ApplyTo(popsicleToPatch, ModelState);
+    
+        // Check if the patch operations were valid
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
+        // Map the patched DTO back to the original entity
+        _mapper.Map(popsicleToPatch, existingPopsicle);
+        
+        await _repository.UpdateAsync(existingPopsicle);
+    
+        return NoContent();
     }
 
     [HttpDelete("{id:guid}")] // Delete by ID
