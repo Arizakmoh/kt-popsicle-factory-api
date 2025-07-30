@@ -18,10 +18,9 @@ A clean, professional RESTful Web API built with **.NET 8**, following **Clean A
 ## 🧱 Clean Architecture Structure
 
 PopsicleFactory/
+
 ├── PopsicleFactory.Domain/ # Domain Entities and Interfaces
-
 ├── PopsicleFactory.Application/ # DTOs, Services, Validation
-
 ├── PopsicleFactory.Infrastructure/ # Repositories, Data Access
 
 ├── PopsicleFactory.WebAPI/ # Controllers, API, Swagger
