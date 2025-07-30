@@ -87,7 +87,9 @@ Run the project (Ctrl + F5)
 
 ##  🌐 Swagger Docs
 Automatically available at:
-http://localhost:5000/swagger
+http://localhost:7272/swagger
+http://localhost:5235/swagger
+
 
 It includes:
 
