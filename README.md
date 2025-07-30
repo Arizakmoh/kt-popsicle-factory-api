@@ -62,6 +62,7 @@ Run the project (Ctrl + F5)
 	GET	/api/popsicles/{id}	Get a popsicle by ID
 	POST	/api/popsicles	Create a new popsicle
 	PUT	/api/popsicles/{id}	Update an existing popsicle
+ 	PATCH	/api/popsicles/{id}	Partially updates an existing popsicle.
 	DELETE	/api/popsicles/{id}	Delete a popsicle (optional)
 
 
@@ -95,6 +96,8 @@ Sample requests/responses
 Error responses
 
 
+# Restore dependencies
+dotnet restore
 
 👨‍💻 Author
 Abdirizak  Abdullahi
