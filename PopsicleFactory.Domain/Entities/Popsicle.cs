@@ -6,11 +6,9 @@ namespace PopsicleFactory.Domain.Entities
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public string Name { get; set; }
-        public string Flavor { get; set; }
-        public string Color { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Flavor { get; set; } = string.Empty;
         public decimal Price { get; set; }
-        public int Quantity { get; set; }
         public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
     }
 }

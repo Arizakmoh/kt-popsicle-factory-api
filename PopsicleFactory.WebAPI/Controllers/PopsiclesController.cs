@@ -6,7 +6,7 @@ using MapsterMapper;
 using Microsoft.AspNetCore.JsonPatch;
 
 namespace PopsicleFactory.WebAPI.Controllers;
-//korterra Assesment Popsicles Controller 
+//korterra Assessment Popsicles Controller 
 
 [ApiController]
 [Route("api/[controller]")]
@@ -20,6 +20,22 @@ public class PopsiclesController : ControllerBase
         _repository = repository;
         _mapper = mapper;
     }
+    /*
+    Scenario: Promise Broken - Popsicle Request is Invalid
+    NOTE: This scenario is handled automatically by the ASP.NET Core pipeline
+    and FluentValidation middleware *before* the request reaches the controller.
+    If the request DTO is invalid, the middleware intercepts it and returns
+    a 400 Bad Request with validation errors.
+    */
+
+    /*
+    Scenario: Search Popsicles
+    Given a Popsicle request is valid
+    And Popsicles exist that match the search criteria
+    When the search request is received from the web service
+    Then an appropriate status code will be returned
+    And the payload should contain the list of Popsicles that matched the search criteria.
+    */
 
     [HttpGet] // Get ALl Popsicles
     public async Task<IActionResult> SearchPopsicles()
@@ -27,6 +43,21 @@ public class PopsiclesController : ControllerBase
         var popsicles = await _repository.GetAllAsync();
         return Ok(_mapper.Map<IEnumerable<PopsicleDto>>(popsicles));
     }
+    /*
+    Scenario: Get Popsicle
+    Given the Popsicle request is valid
+    And a Popsicle exists
+    When the get request is received from the web service
+    Then an appropriate status code will be returned
+    And the Popsicle View Model will be returned.
+
+    Scenario: Promise Broken - Popsicle does not exist
+    Given a Popsicle request is valid
+    And the Popsicle requested does not exist
+    When the request is received from the web service
+    Then an appropriate status code will be returned
+    And the message explaining that the Popsicle does not exist should be returned
+    */
 
     [HttpGet("{id:guid}")] // Get by ID
     public async Task<IActionResult> GetPopsicle(Guid id)
@@ -37,7 +68,14 @@ public class PopsiclesController : ControllerBase
 
         return Ok(_mapper.Map<PopsicleDto>(popsicle));
     }
-
+    /*
+    Scenario: Create Popsicle
+    Given the Popsicle request is valid
+    When the create request is received from the web service
+    Then an appropriate status code will be returned
+    And the Popsicle will be persisted
+    And a view model of the Popsicle will be returned.
+    */
     [HttpPost] // Post
     public async Task<IActionResult> CreatePopsicle([FromBody] CreatePopsicleDto createDto)
     {
@@ -50,6 +88,19 @@ public class PopsiclesController : ControllerBase
         var popsicleDto = _mapper.Map<PopsicleDto>(popsicle);
         return CreatedAtAction(nameof(GetPopsicle), new { id = popsicleDto.Id }, popsicleDto);
     }
+
+    /*
+    Scenario: Replace Popsicle
+    Given the Popsicle request is valid
+    And a Popsicle exists
+    When the replace request is received from the web service
+    Then an appropriate status code will be returned
+    And the Popsicle will be persisted with all properties overwritten
+    And a view model of the Popsicle will be returned.
+    
+    Scenario: Promise Broken - Popsicle does not exist
+    (This method also covers the "not found" case for a PUT request)
+    */
 
     [HttpPut("{id:guid}")] // Update by ID
     public async Task<IActionResult> ReplacePopsicle(Guid id, [FromBody] UpdatePopsicleDto updateDto)
@@ -64,19 +115,41 @@ public class PopsiclesController : ControllerBase
         return Ok(_mapper.Map<PopsicleDto>(existingPopsicle));
     }
 
+<<<<<<< HEAD
     [HttpPatch("{id:guid}")]
+=======
+    /*
+    Scenario: Update Popsicle (optional for challenge)
+    Given the Popsicle request is valid
+    And a Popsicle exists
+    When the update request is received from the web service
+    Then an appropriate status code will be returned
+    And the Popsicle will be persisted with only the properties that were changed
+    And a view model of the Popsicle will be returned.
+
+    Scenario: Promise Broken - Popsicle does not exist
+    (This method also covers the "not found" case for a PATCH request)
+    */
+
+    [HttpPatch("{id:guid}")] // Patch 
+>>>>>>> 391473f (Finalize project and update documentation)
     public async Task<IActionResult> UpdatePopsicle(Guid id, [FromBody] JsonPatchDocument<UpdatePopsicleDto> patchDoc)
     {
         if (patchDoc is null)
         {
             return BadRequest();
         }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 391473f (Finalize project and update documentation)
         var existingPopsicle = await _repository.GetByIdAsync(id);
         if (existingPopsicle is null)
         {
             return NotFound($"Popsicle with ID {id} not found.");
         }
+<<<<<<< HEAD
     
         // Create a DTO from the existing entity to apply the patch to
         var popsicleToPatch = _mapper.Map<UpdatePopsicleDto>(existingPopsicle);
@@ -85,10 +158,17 @@ public class PopsiclesController : ControllerBase
         patchDoc.ApplyTo(popsicleToPatch, ModelState);
     
         // Check if the patch operations were valid
+=======
+
+        var popsicleToPatch = _mapper.Map<UpdatePopsicleDto>(existingPopsicle);
+        patchDoc.ApplyTo(popsicleToPatch, ModelState);
+
+>>>>>>> 391473f (Finalize project and update documentation)
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
+<<<<<<< HEAD
         
         // Map the patched DTO back to the original entity
         _mapper.Map(popsicleToPatch, existingPopsicle);
@@ -98,6 +178,26 @@ public class PopsiclesController : ControllerBase
         return NoContent();
     }
 
+=======
+
+        _mapper.Map(popsicleToPatch, existingPopsicle);
+
+        await _repository.UpdateAsync(existingPopsicle);
+
+        return NoContent();
+    }
+    /*
+    Scenario: Remove Popsicle (optional for challenge)
+    Given the Popsicle request is valid
+    And a Popsicle exists
+    When the remove request is received from the web service
+    Then an appropriate status code will be returned
+    And the Popsicle will be removed from storage.
+
+    Scenario: Promise Broken - Popsicle does not exist
+    (This method also covers the "not found" case for a DELETE request)
+    */
+>>>>>>> 391473f (Finalize project and update documentation)
     [HttpDelete("{id:guid}")] // Delete by ID
     public async Task<IActionResult> RemovePopsicle(Guid id)
     {

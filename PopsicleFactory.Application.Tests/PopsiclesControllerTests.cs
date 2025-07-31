@@ -1,18 +1,29 @@
+<<<<<<< HEAD
 using Xunit;
 using Moq;
 using Mapster;
+=======
+﻿using Mapster;
+>>>>>>> 391473f (Finalize project and update documentation)
 using MapsterMapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Operations;
+using Microsoft.AspNetCore.Mvc;
+<<<<<<< HEAD
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch.Operations;
+=======
+using Moq;
+using PopsicleFactory.Application.Dtos;
+>>>>>>> 391473f (Finalize project and update documentation)
 using PopsicleFactory.Domain.Entities;
 using PopsicleFactory.Domain.Interfaces;
-using PopsicleFactory.Application.Dtos;
 using PopsicleFactory.WebAPI.Controllers;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
 
 public class PopsiclesControllerTests
 {
@@ -170,6 +181,34 @@ public class PopsiclesControllerTests
         Assert.IsType<NotFoundObjectResult>(result);
     }
 
+
+    /**************************** Patch Unit Tests *********************************/
+    [Fact]
+    public async Task UpdatePopsicle_WhenPopsicleExists_ShouldReturnNoContent()
+    {
+        var popsicleId = Guid.NewGuid();
+        var existingPopsicle = new Popsicle { Id = popsicleId, Name = "Original", Price = 1.00m };
+        _mockRepo.Setup(repo => repo.GetByIdAsync(popsicleId)).ReturnsAsync(existingPopsicle);
+
+        var patchDoc = new JsonPatchDocument<UpdatePopsicleDto>();
+        patchDoc.Operations.Add(new Operation<UpdatePopsicleDto>("replace", "/price", null, 3.99m));
+
+        var result = await _controller.UpdatePopsicle(popsicleId, patchDoc);
+
+        Assert.IsType<NoContentResult>(result);
+        _mockRepo.Verify(r => r.UpdateAsync(It.Is<Popsicle>(p => p.Price == 3.99m)), Times.Once);
+    }
+
+    [Fact]
+    public async Task UpdatePopsicle_WhenPopsicleDoesNotExist_ShouldReturnNotFound()
+    {
+        _mockRepo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Popsicle?)null);
+        var patchDoc = new JsonPatchDocument<UpdatePopsicleDto>();
+
+        var result = await _controller.UpdatePopsicle(Guid.NewGuid(), patchDoc);
+
+        Assert.IsType<NotFoundObjectResult>(result);
+    }
 
     /**************************** Delete Unit Tests *********************************/
 
