@@ -10,8 +10,7 @@ A clean, professional RESTful Web API built with **.NET 8**, following **Clean A
 - **Partial Updates** - PATCH support for efficient resource updates
 - **Clean Architecture** - Separation of concerns with domain, application, and infrastructure layers
 - **Robust Validation** - FluentValidation integration for request validation
-- **Comprehensive Testing** - 95% test coverage with xUnit and Moq
-- **API Documentation** - Interactive Swagger/OpenAPI documentation
+- **API Documentation** - Interactive Swagger documentation
 - **Performance Optimized** - Async operations and efficient data mapping
 
 ## 📦 Tech Stack
@@ -28,9 +27,9 @@ A clean, professional RESTful Web API built with **.NET 8**, following **Clean A
 - **Testing**: xUnit, Moq, FluentAssertions
 - **Validation**: FluentValidation
 - **Mapping**: Mapster (for high-performance object mapping)
-- **Documentation**: Swagger/OpenAPI
+- **Documentation**: Swagger
 - **Patching**: Microsoft.AspNetCore.JsonPatch
->>>>>>> 391473f (Finalize project and update documentation)
+
 
 ## 🚀 Quick Start
 
@@ -146,7 +145,6 @@ json
   "productionDate": "2025-07-30"
 }
 Partial Update (PATCH)
->>>>>>> 391473f (Finalize project and update documentation)
 
 json
 [
@@ -184,4 +182,3 @@ PopsicleFactory/
  
 👨‍💻 Author
 Abdirizak Abdullahi
-GitHub | LinkedIn | Portfolio
