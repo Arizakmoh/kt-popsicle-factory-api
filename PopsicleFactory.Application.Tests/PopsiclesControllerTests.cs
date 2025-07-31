@@ -1,29 +1,18 @@
-<<<<<<< HEAD
-using Xunit;
-using Moq;
-using Mapster;
-=======
-﻿using Mapster;
->>>>>>> 391473f (Finalize project and update documentation)
-using MapsterMapper;
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.JsonPatch.Operations;
-using Microsoft.AspNetCore.Mvc;
-<<<<<<< HEAD
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.JsonPatch.Operations;
-=======
-using Moq;
-using PopsicleFactory.Application.Dtos;
->>>>>>> 391473f (Finalize project and update documentation)
-using PopsicleFactory.Domain.Entities;
-using PopsicleFactory.Domain.Interfaces;
-using PopsicleFactory.WebAPI.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
+using Moq;
+using Mapster;
+using MapsterMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch.Operations;
+using PopsicleFactory.Domain.Entities;
+using PopsicleFactory.Domain.Interfaces;
+using PopsicleFactory.WebAPI.Controllers;
+using PopsicleFactory.Application.Dtos;
 
 public class PopsiclesControllerTests
 {
@@ -35,9 +24,10 @@ public class PopsiclesControllerTests
     {
         _mockRepo = new Mock<IPopsicleRepository>();
 
-        // Setup Mapster 
+        // Setup Mapster for all required mappings
         var config = new TypeAdapterConfig();
         config.NewConfig<Popsicle, PopsicleDto>();
+        config.NewConfig<Popsicle, UpdatePopsicleDto>(); // For PATCH
         config.NewConfig<CreatePopsicleDto, Popsicle>();
         config.NewConfig<UpdatePopsicleDto, Popsicle>();
         _mapper = new Mapper(config);
@@ -50,14 +40,14 @@ public class PopsiclesControllerTests
     [Fact]
     public async Task GetPopsicle_WhenPopsicleExists_ShouldReturnOk()
     {
-        // Arrange for preconditions ( input test)
+        // Arrange
         var popsicle = new Popsicle { Id = Guid.NewGuid(), Name = "Grape", Price = 2.70m };
         _mockRepo.Setup(repo => repo.GetByIdAsync(popsicle.Id)).ReturnsAsync(popsicle);
 
-        // Act method calling 
+        // Act
         var result = await _controller.GetPopsicle(popsicle.Id);
 
-        // Assert for outcome 
+        // Assert
         var okResult = Assert.IsType<OkObjectResult>(result);
         var returnedDto = Assert.IsType<PopsicleDto>(okResult.Value);
         Assert.Equal(popsicle.Id, returnedDto.Id);
@@ -95,7 +85,6 @@ public class PopsiclesControllerTests
         var returnedDtos = Assert.IsAssignableFrom<IEnumerable<PopsicleDto>>(okResult.Value);
         Assert.Equal(2, returnedDtos.Count());
     }
-
 
     /**************************** Post Unit Tests *********************************/
 
@@ -148,44 +137,12 @@ public class PopsiclesControllerTests
         Assert.IsType<NotFoundObjectResult>(result);
     }
 
-    [Fact]
-    public async Task UpdatePopsicle_WhenPopsicleExists_ShouldReturnNoContent()
-    {
-        // Arrange
-        var popsicleId = Guid.NewGuid();
-        var existingPopsicle = new Popsicle { Id = popsicleId, Name = "Original", Price = 1.00m };
-        _mockRepo.Setup(repo => repo.GetByIdAsync(popsicleId)).ReturnsAsync(existingPopsicle);
-
-        var patchDoc = new JsonPatchDocument<UpdatePopsicleDto>();
-        patchDoc.Operations.Add(new Operation<UpdatePopsicleDto>("replace", "/price", null, 3.99m));
-
-        // Act
-        var result = await _controller.UpdatePopsicle(popsicleId, patchDoc);
-
-        // Assert
-        Assert.IsType<NoContentResult>(result);
-        _mockRepo.Verify(r => r.UpdateAsync(It.Is<Popsicle>(p => p.Price == 3.99m)), Times.Once);
-    }
-
-    [Fact]
-    public async Task UpdatePopsicle_WhenPopsicleDoesNotExist_ShouldReturnNotFound()
-    {
-        // Arrange
-        _mockRepo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Popsicle?)null);
-        var patchDoc = new JsonPatchDocument<UpdatePopsicleDto>();
-
-        // Act
-        var result = await _controller.UpdatePopsicle(Guid.NewGuid(), patchDoc);
-
-        // Assert
-        Assert.IsType<NotFoundObjectResult>(result);
-    }
-
-
     /**************************** Patch Unit Tests *********************************/
+
     [Fact]
     public async Task UpdatePopsicle_WhenPopsicleExists_ShouldReturnNoContent()
     {
+        // Arrange
         var popsicleId = Guid.NewGuid();
         var existingPopsicle = new Popsicle { Id = popsicleId, Name = "Original", Price = 1.00m };
         _mockRepo.Setup(repo => repo.GetByIdAsync(popsicleId)).ReturnsAsync(existingPopsicle);
@@ -193,8 +150,10 @@ public class PopsiclesControllerTests
         var patchDoc = new JsonPatchDocument<UpdatePopsicleDto>();
         patchDoc.Operations.Add(new Operation<UpdatePopsicleDto>("replace", "/price", null, 3.99m));
 
+        // Act
         var result = await _controller.UpdatePopsicle(popsicleId, patchDoc);
 
+        // Assert
         Assert.IsType<NoContentResult>(result);
         _mockRepo.Verify(r => r.UpdateAsync(It.Is<Popsicle>(p => p.Price == 3.99m)), Times.Once);
     }
@@ -202,11 +161,14 @@ public class PopsiclesControllerTests
     [Fact]
     public async Task UpdatePopsicle_WhenPopsicleDoesNotExist_ShouldReturnNotFound()
     {
+        // Arrange
         _mockRepo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Popsicle?)null);
         var patchDoc = new JsonPatchDocument<UpdatePopsicleDto>();
 
+        // Act
         var result = await _controller.UpdatePopsicle(Guid.NewGuid(), patchDoc);
 
+        // Assert
         Assert.IsType<NotFoundObjectResult>(result);
     }
 

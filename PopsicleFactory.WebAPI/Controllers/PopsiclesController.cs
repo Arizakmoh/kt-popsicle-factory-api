@@ -153,6 +153,8 @@ public class PopsiclesController : ControllerBase
         _mapper.Map(popsicleToPatch, existingPopsicle);
 
         await _repository.UpdateAsync(existingPopsicle);
+        
+        //return Ok(_mapper.Map<PopsicleDto>(existingPopsicle));
 
         return NoContent();
     }
