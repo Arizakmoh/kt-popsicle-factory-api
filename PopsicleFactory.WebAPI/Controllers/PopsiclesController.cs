@@ -115,9 +115,6 @@ public class PopsiclesController : ControllerBase
         return Ok(_mapper.Map<PopsicleDto>(existingPopsicle));
     }
 
-<<<<<<< HEAD
-    [HttpPatch("{id:guid}")]
-=======
     /*
     Scenario: Update Popsicle (optional for challenge)
     Given the Popsicle request is valid
@@ -131,54 +128,27 @@ public class PopsiclesController : ControllerBase
     (This method also covers the "not found" case for a PATCH request)
     */
 
-    [HttpPatch("{id:guid}")] // Patch 
->>>>>>> 391473f (Finalize project and update documentation)
+    [HttpPatch("{id:guid}")]
     public async Task<IActionResult> UpdatePopsicle(Guid id, [FromBody] JsonPatchDocument<UpdatePopsicleDto> patchDoc)
     {
         if (patchDoc is null)
         {
             return BadRequest();
         }
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 391473f (Finalize project and update documentation)
         var existingPopsicle = await _repository.GetByIdAsync(id);
         if (existingPopsicle is null)
         {
             return NotFound($"Popsicle with ID {id} not found.");
         }
-<<<<<<< HEAD
-    
-        // Create a DTO from the existing entity to apply the patch to
-        var popsicleToPatch = _mapper.Map<UpdatePopsicleDto>(existingPopsicle);
-    
-        // Apply the patch operations
-        patchDoc.ApplyTo(popsicleToPatch, ModelState);
-    
-        // Check if the patch operations were valid
-=======
 
         var popsicleToPatch = _mapper.Map<UpdatePopsicleDto>(existingPopsicle);
         patchDoc.ApplyTo(popsicleToPatch, ModelState);
 
->>>>>>> 391473f (Finalize project and update documentation)
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
-<<<<<<< HEAD
-        
-        // Map the patched DTO back to the original entity
-        _mapper.Map(popsicleToPatch, existingPopsicle);
-        
-        await _repository.UpdateAsync(existingPopsicle);
-    
-        return NoContent();
-    }
-
-=======
 
         _mapper.Map(popsicleToPatch, existingPopsicle);
 
@@ -197,7 +167,6 @@ public class PopsiclesController : ControllerBase
     Scenario: Promise Broken - Popsicle does not exist
     (This method also covers the "not found" case for a DELETE request)
     */
->>>>>>> 391473f (Finalize project and update documentation)
     [HttpDelete("{id:guid}")] // Delete by ID
     public async Task<IActionResult> RemovePopsicle(Guid id)
     {

@@ -16,21 +16,18 @@ A clean, professional RESTful Web API built with **.NET 8**, following **Clean A
 
 ## 📦 Tech Stack
 
-<<<<<<< HEAD
 - **.NET 8 Web API**
 - **Clean Architecture**
 - **FluentValidation**
 - **xUnit** for unit testing
 - **Swagger** for API documentation
 - **In-Memory Repository** (mock data layer)
-=======
 - **Framework**: .NET 8 Web API
 - **Testing**: xUnit, Moq, FluentAssertions
 - **Validation**: FluentValidation
 - **Mapping**: Mapster (for high-performance object mapping)
 - **Documentation**: Swagger/OpenAPI
 - **Patching**: Microsoft.AspNetCore.JsonPatch
->>>>>>> 391473f (Finalize project and update documentation)
 
 ## 🚀 Quick Start
 
@@ -77,7 +74,7 @@ Run the project (Ctrl + F5)
 
 
 ## ✅ Swagger UI will launch automatically at:
- http://localhost:5000/swagger (double check the port please)
+http://localhost:5235/swagger or  https://localhost:7272/swagger (double check the port please)
 
 
 
@@ -143,10 +140,8 @@ json
   "name": "Strawberry Dream",
   "flavor": "Strawberry & Cream",
   "price": 3.75,
-  "productionDate": "2025-07-30"
 }
 Partial Update (PATCH)
->>>>>>> 391473f (Finalize project and update documentation)
 
 json
 [
@@ -184,4 +179,3 @@ PopsicleFactory/
  
 👨‍💻 Author
 Abdirizak Abdullahi
-GitHub | LinkedIn | Portfolio
