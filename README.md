@@ -73,7 +73,7 @@ Run the project (Ctrl + F5)
 
 
 ## ✅ Swagger UI will launch automatically at:
- http://localhost:5000/swagger (double check the port please)
+ http://localhost:5235/swagger or  https://localhost:7272/swagger (double check the port please)
 
 
 
@@ -139,7 +139,6 @@ json
   "name": "Strawberry Dream",
   "flavor": "Strawberry & Cream",
   "price": 3.75,
-  "productionDate": "2025-07-30"
 }
 Partial Update (PATCH)
 
@@ -156,6 +155,9 @@ json
     "value": "Limited edition summer flavor"
   }
 ]
+
+for more example please use postman json collections for all request and response 
+
 🏗️ Project Structure
 text
 PopsicleFactory/
