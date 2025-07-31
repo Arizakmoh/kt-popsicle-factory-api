@@ -52,10 +52,7 @@ To run the complete test suite:
 
 bash
 dotnet test
-For test coverage (requires Coverlet):
 
-bash
-dotnet test --collect:"XPlat Code Coverage"
 📚 API Documentation
 Interactive Documentation
 Access Swagger UI at:
