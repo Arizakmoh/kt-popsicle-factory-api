@@ -10,8 +10,7 @@ A clean, professional RESTful Web API built with **.NET 8**, following **Clean A
 - **Partial Updates** - PATCH support for efficient resource updates
 - **Clean Architecture** - Separation of concerns with domain, application, and infrastructure layers
 - **Robust Validation** - FluentValidation integration for request validation
-- **Comprehensive Testing** - 95% test coverage with xUnit and Moq
-- **API Documentation** - Interactive Swagger/OpenAPI documentation
+- **API Documentation** - Interactive Swagger documentation
 - **Performance Optimized** - Async operations and efficient data mapping
 
 ## 📦 Tech Stack
@@ -26,8 +25,9 @@ A clean, professional RESTful Web API built with **.NET 8**, following **Clean A
 - **Testing**: xUnit, Moq, FluentAssertions
 - **Validation**: FluentValidation
 - **Mapping**: Mapster (for high-performance object mapping)
-- **Documentation**: Swagger/OpenAPI
+- **Documentation**: Swagger
 - **Patching**: Microsoft.AspNetCore.JsonPatch
+
 
 ## 🚀 Quick Start
 
@@ -50,10 +50,7 @@ To run the complete test suite:
 
 bash
 dotnet test
-For test coverage (requires Coverlet):
 
-bash
-dotnet test --collect:"XPlat Code Coverage"
 📚 API Documentation
 Interactive Documentation
 Access Swagger UI at:
@@ -61,8 +58,6 @@ http://localhost:5235/swagger
 https://localhost:7272/swagger
 
 
-<<<<<<< HEAD
----
 
 ## 🛠️ Run the API Locally
 
@@ -74,7 +69,7 @@ Run the project (Ctrl + F5)
 
 
 ## ✅ Swagger UI will launch automatically at:
-http://localhost:5235/swagger or  https://localhost:7272/swagger (double check the port please)
+ http://localhost:5235/swagger or  https://localhost:7272/swagger (double check the port please)
 
 
 
@@ -111,8 +106,6 @@ http://localhost:5235/swagger or  https://localhost:7272/swagger (double check t
 Automatically available at:
 http://localhost:7272/swagger
 
-http://localhost:5235/swagger
-
 
 It includes:
 
@@ -123,7 +116,7 @@ Error responses
 
 # Restore dependencies
 dotnet restore
-=======
+
 Endpoint Reference
 Method	Endpoint	Description
 GET	/api/popsicles	Get all popsicles
@@ -156,6 +149,9 @@ json
     "value": "Limited edition summer flavor"
   }
 ]
+
+for more example please use postman json collections for all request and response 
+
 🏗️ Project Structure
 text
 PopsicleFactory/
